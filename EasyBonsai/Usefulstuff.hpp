@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <iostream>
 #include "cppconlib.h"
 #include <sys/stat.h>
@@ -12,27 +13,58 @@
 using namespace std;
 using namespace conmanip;
 
-vector<string> translate(vector<string> inp) {
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+bool isValid(string input);
+bool isEasyJmp(string input);
+bool isFormatted(string input);
+/////////////////////////////////////////////////////////
+vector<string> translate(vector<string> inp);
+vector<std::string> split(std::string str, std::string sep);
+/////////////////////////////////////////////////////////
+string join(const vector<string>& v, char c);
+/////////////////////////////////////////////////////////
+void format(vector<string> *in);
+void log(string message, console_text_colors color = console_text_colors::white, console_bg_colors bgcolor = console_bg_colors::black, bool endline = true,string prefix = "");
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
-	vector<string> t_code;
-
-
-	return t_code;
+regex validinst(R"rgx(^(jmp .?\d)|(tst .?\d)|(dec .\d)|(inc .?\d)|(hlt)$)rgx");
+bool isValid(string input) {
+	if (regex_match(input, validinst)) {
+		return true;
+	}
+	return false;
 }
 
-void log(string message, console_text_colors color = console_text_colors::white, console_bg_colors bgcolor = console_bg_colors::black, bool endline = true);
-void log(string message, console_text_colors color, console_bg_colors bgcolor, bool endline) {
+regex easyjmp(R"rgx(^(jmp \+\d)$)rgx");
+bool isEasyJmp(string input) {
+	if (regex_match(input, easyjmp)) {
+		return true;
+	}
+	return false;
+}
 
+regex _format(R"rgx(^(\d: [a-zA-Z0-9 ]*$)$)rgx");
+bool isFormatted(string input) {
+	if (regex_match(input, _format)) {
+		return true;
+	}
+	return false;
+}
+
+
+void log(string message, console_text_colors color, console_bg_colors bgcolor, bool endline, string prefix) {
 	cout
 		<< settextcolor(color)
 		<< setbgcolor(bgcolor)
-		<< "[EasyBonsai] >> " << message
+		<< (prefix != "" ? "["+prefix+"] " : "")
 		<< settextcolor(console_text_colors::white)
 		<< setbgcolor(console_bg_colors::black)
+		<< message
 		<< " " << ((endline == true) ? "\n" : "");
-
 }
-std::vector<std::string> split(std::string str, std::string sep);
+
 std::vector<std::string> split(std::string str, std::string sep) {
 	char* cstr = const_cast<char*>(str.c_str());
 	char* current;
@@ -45,29 +77,14 @@ std::vector<std::string> split(std::string str, std::string sep) {
 	return arr;
 }
 
-regex validinst( R"rgx(^(jmp .?\d)|(tst .?\d)|(dec .\d)|(inc .?\d)|(hlt)$)rgx" );
-bool isValid(string input);
-bool isValid(string input) {
-	if (regex_match(input, validinst)) {
-		return true;
-	}
-	return false;
-}
-
-string join(const vector<string>& v, char c);
 string join(const vector<string>& v, char c) {
-
 	string s;
-
 	s.clear();
-
 	for (vector<string>::const_iterator p = v.begin();
 		p != v.end(); ++p) {
 		s += *p;
 		if (p != v.end() - 1)
 			s += c;
 	}
-
 	return s;
-
 }
