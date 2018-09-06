@@ -24,7 +24,21 @@ int main(int argc, char* args[]) {
 			>> setbgcolor(console_bg_colors::black)
 			>> filename;
 	}
-	else {
+	else 
+	{
+
+		if (args[1] == "help") {
+
+			cout
+				<< "EasyBonsai is a easier version of the BonsaiAssembler which will be converted back to runnable (Bonsai)Assembler." << endl
+				<< "Features of Easybonsai are:" << endl
+				<< "- it ignores invalid lines, so you can comment your code." << endl
+				<< "- it supports jmp with skipping, (so jmp +2 will jump 2 lines forward)" << endl
+				;
+
+			return 0;
+		}
+
 		filename = std::string(args[1]);
 	}
 
@@ -60,7 +74,10 @@ int main(int argc, char* args[]) {
 		cout << endl << endl;
 
 		log("Parsed Code: \n", console_text_colors::light_green);
-		cout << setbgcolor(console_bg_colors::white) << settextcolor(console_text_colors::magenta) << join(builtcode, '\n') << endl << endl;
+
+		for (int i = 0; builtcode.size() > i; i++) {
+			cout << setbgcolor(console_bg_colors::white) << settextcolor(console_text_colors::magenta) << i << ": " << builtcode[i] << endl;
+		}
 		ctxout.restore(console_cleanup_options::restore_attibutes);
 
 		log("Translating code...", console_text_colors::light_yellow);

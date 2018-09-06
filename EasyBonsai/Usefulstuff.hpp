@@ -11,6 +11,15 @@
 
 using namespace std;
 using namespace conmanip;
+
+vector<string> translate(vector<string> inp) {
+
+	vector<string> t_code;
+
+
+	return t_code;
+}
+
 void log(string message, console_text_colors color = console_text_colors::white, console_bg_colors bgcolor = console_bg_colors::black, bool endline = true);
 void log(string message, console_text_colors color, console_bg_colors bgcolor, bool endline) {
 
@@ -36,7 +45,7 @@ std::vector<std::string> split(std::string str, std::string sep) {
 	return arr;
 }
 
-regex validinst( R"rgx(^(jmp \d)|(tst \d)|(dec \d)|(inc \d)$)rgx" );
+regex validinst( R"rgx(^(jmp .?\d)|(tst .?\d)|(dec .\d)|(inc .?\d)|(hlt)$)rgx" );
 bool isValid(string input);
 bool isValid(string input) {
 	if (regex_match(input, validinst)) {
