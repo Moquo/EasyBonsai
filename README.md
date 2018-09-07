@@ -1,6 +1,6 @@
 # EasyBonsai
 
-This program will make it easier to write code in bonsai-assemble (code will be translated back to bonsai), it supports features like "creating/naming" functions and value allocation without much effort.
+This program will make it easier to write code in bonsai-assembler (code will be translated back to bonsai), it supports features like "creating/naming" functions and value allocation without much effort.
 
 (BonsaiAssembler: https://bonsai.pinyto.de/assembler/)
 
