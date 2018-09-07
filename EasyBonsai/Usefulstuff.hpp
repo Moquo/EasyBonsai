@@ -25,6 +25,8 @@ vector<std::string> split(std::string str, std::string sep);
 string join(const vector<string>& v, char c);
 /////////////////////////////////////////////////////////
 void format(vector<string> *in);
+void JmpOverwrite(vector<string> *in);
+void FunctionSystem(vector<string> *in);
 void log(string message, console_text_colors color = console_text_colors::white, console_bg_colors bgcolor = console_bg_colors::black, bool endline = true,string prefix = "");
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////

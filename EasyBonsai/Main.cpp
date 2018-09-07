@@ -92,7 +92,7 @@ void format(vector<string> *in) {
 void JmpOverwrite(vector<string> *in) {
 	for (int i = 0; (*in).size() > i; i++) {
 		if (isEasyJmp((*in)[i])) {
-			if (strstr(string((*in)[i]).c_str(), "-")) {
+			if (strstr((*in)[i].c_str(), "-")) {
 				string afterminus = split(string((*in)[i]), "-")[1];
 				int parsedskip = std::atoi(afterminus.c_str());
 				(*in)[i] = std::string(::to_string(i) + ": jmp " + ::to_string(i - parsedskip));
@@ -104,6 +104,9 @@ void JmpOverwrite(vector<string> *in) {
 			}
 		}
 	}
+}
+void FunctionSystem(vector<string> *in) {
+
 }
 
 vector<string> translate(vector<string> inp) {
