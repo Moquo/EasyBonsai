@@ -18,7 +18,7 @@ This will translate the code of your source file to bonsai assembler code.
 
 ## Features
 
-#Variable Allocation:
+# Variable Allocation:
 ```
 //You will need a value x(the value to copy from), value y(the value to copy to) and a helper value.
 [x=y#helpervalue]
@@ -29,7 +29,7 @@ In this example x will be set to 0.
 [x=zero]
 ```
 
-#Function Like System
+# Function Like System
 ```
 0: tst 0
 1: jmp x //<-- This will later jump straight to line 3
@@ -38,7 +38,7 @@ In this example x will be set to 0.
 4: dec 0
 5: jmp 0
 ```
-#"JmpSkipping"
+# "JmpSkipping"
 (With this code its pretty self explanatory)
 ```
 0: tst 0
