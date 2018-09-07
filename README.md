@@ -2,6 +2,8 @@
 
 This program will make it easier to write code in bonsai-assembler, it supports features like "creating/naming" functions and value allocation without much effort.
 
+(BonsaiAssembler: https://bonsai.pinyto.de/assembler/)
+
 ## Installing
 
 Download and Compile :D (This project should work for linux too but I'm not too sure about that because of the cppconlib library)
