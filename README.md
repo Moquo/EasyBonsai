@@ -56,4 +56,4 @@ In this example x will be set to 0.
 
 ## Authors
 
-* **Me** -
+* **Me** 
