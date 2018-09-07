@@ -1,2 +1,59 @@
 # EasyBonsai
-A small project for converting "easy"ish (Bonsai)Assembler to real BonsaiAssembler code.
+
+This program will make it easier to write code in bonsai-assembler, it supports features like "creating/naming" functions and value allocation without much effort.
+
+## Installing
+
+Download and Compile :D (This project should work for linux too but I'm not too sure about that because of the cppconlib library)
+
+### Getting Started
+
+This program can be easily ran through your console, it works like this:
+
+```
+EasyBonsai.exe (Name of Text/Source File)
+```
+This will translate the code of your source file to bonsai assembler code.
+
+
+## Features
+
+#Variable Allocation:
+```
+//You will need a value x(the value to copy from), value y(the value to copy to) and a helper value.
+[x=y#helpervalue]
+```
+
+In this example x will be set to 0.
+```
+[x=zero]
+```
+
+#Function Like System
+```
+0: tst 0
+1: jmp x //<-- This will later jump straight to line 3
+2: hlt
+3: x: inc 1
+4: dec 0
+5: jmp 0
+```
+#"JmpSkipping"
+(With this code its pretty self explanatory)
+```
+0: tst 0
+1: jmp +2
+2: jmp +3
+3: dec 0
+4: inc 1
+5: [...]
+```
+
+
+## Built With
+
+* [cppconlib](https://archive.codeplex.com/?p=cppconlib) - For better looking console outputs.
+
+## Authors
+
+* **Me** -
