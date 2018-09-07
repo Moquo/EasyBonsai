@@ -29,7 +29,8 @@ void log(string message, console_text_colors color = console_text_colors::white,
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 
-regex validinst(R"rgx(^(jmp .?\d)|(tst .?\d)|(dec .\d)|(inc .?\d)|(hlt)$)rgx");
+//regex validinst(R"rgx(^(jmp .?\d)|(tst .?\d)|(dec .\d)|(inc .?\d)|(hlt)$)rgx");
+regex validinst(R"rgx(^(jmp .?\d)|(tst \d)|(dec \d)|(inc \d)|(hlt)$)rgx");
 bool isValid(string input) {
 	if (regex_match(input, validinst)) {
 		return true;
@@ -37,7 +38,7 @@ bool isValid(string input) {
 	return false;
 }
 
-regex easyjmp(R"rgx(^(jmp \+\d)$)rgx");
+regex easyjmp(R"rgx(^(jmp \+\d)|(jmp \-\d)$)rgx");
 bool isEasyJmp(string input) {
 	if (regex_match(input, easyjmp)) {
 		return true;
