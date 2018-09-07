@@ -85,7 +85,9 @@ int main(int argc, char* args[])
 
 void format(vector<string> *in) {
 	for (int i = 0; (*in).size() > i; i++) {
-		if (!isFormatted(string(((*in)[i]))))
+		if (isMarked((*in)[i]))
+			(*in)[i] = (*in)[i].substr(3);
+		if (!isFormatted(((*in)[i])))
 			(*in)[i] = std::string(::to_string(i) + ": " + (*in)[i]);
 	}
 }
@@ -106,7 +108,26 @@ void JmpOverwrite(vector<string> *in) {
 	}
 }
 void FunctionSystem(vector<string> *in) {
-
+	vector<pair<int,string>> markedFuncs;
+	for (int i = 0; (*in).size() > i; i++) {
+		if (isMarked((*in)[i])) {
+			string funcName = split((*in)[i], ":")[0];
+			markedFuncs.push_back(std::make_pair<int,string>((int)i, (string)funcName));
+		}
+	}
+	for (auto x : markedFuncs) {
+		string funcName = x.second;
+		int funcLine = x.first;
+		for (int i = 0; (*in).size() > i; i++) {
+			if (isFuncJmp((*in)[i])) {
+				string _fName = (*in)[i].substr((*in)[i].size() - 1);
+				if (_fName.substr(_fName.size()-1) == funcName) {
+					(*in)[i] = string((*in)[i].substr(0, ((*in)[i].find(_fName.c_str()))) + ::to_string(funcLine));
+				}
+				markedFuncs.push_back(std::make_pair<int, string>((int)i, (string)funcName));
+			}
+		}
+	}
 }
 
 vector<string> translate(vector<string> inp) {
@@ -115,6 +136,7 @@ vector<string> translate(vector<string> inp) {
 
 	//Create Pre-Function Instructions
 	//Overwrite JMPS to be correct.
+	FunctionSystem(&t_code);
 	JmpOverwrite(&t_code);
 	//Append Functions
 	//Format Code
