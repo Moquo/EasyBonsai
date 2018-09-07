@@ -42,11 +42,12 @@ In this example x will be set to 0.
 (With this code its pretty self explanatory)
 ```
 0: tst 0
-1: jmp +2
-2: jmp +3
+1: jmp +2 //Will jump to line 3
+2: jmp +3 // Will jump to line 5
 3: dec 0
 4: inc 1
 5: [...]
+6: jmp -6 //You can also jump backwards! This will jump to line 0
 ```
 
 
