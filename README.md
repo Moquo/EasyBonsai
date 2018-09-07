@@ -29,7 +29,7 @@ In this example x will be set to 0.
 [x=zero]
 ```
 
-# Function Like System
+# Function like System
 ```
 0: tst 0
 1: jmp x //<-- This will later jump straight to line 3
