@@ -42,7 +42,7 @@ In this example x will be set to 0.
 [x=zero]
 ```
 
-### Function like System
+### Function System
 ```
 0: tst 0
 1: jmp x //<-- This will later jump straight to line 3
@@ -51,7 +51,7 @@ In this example x will be set to 0.
 4: dec 0
 5: jmp 0
 ```
-### "EasyJumps"
+### EasyJumps
 Allows us to jump a set amount of lines forwards or backwards.
 ```
 0: tst 0
