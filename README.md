@@ -6,7 +6,7 @@ This program will make it easier to write code in bonsai-assembler (code will be
 
 ## Installing
 
-Download and Compile :D (This project should work for linux too but I'm not too sure about that because of the cppconlib library)
+Download and Compile :D (This project should work for linux too after removing the cppconlib-library)
 
 ### Getting Started
 
