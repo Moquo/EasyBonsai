@@ -8,7 +8,7 @@ This program will make it easier to write code in bonsai-assembler (code will be
 
 * Windows:
   Donwload and Compile.
-* Linux/Mac
+* Linux/Mac:
   Download and Compile if your compiler supports regex.
 
 ### Getting Started
@@ -21,13 +21,13 @@ EasyBonsai.exe (Name of Text/Source File) (Optional Parameters: --strict,--hidel
 
 **Parameters**
 
-* strict
+* strict:
 Translator will abort if invalid code was found
-* hidelinenumbers
+* hidelinenumbers:
 Line numbers will not be shown, obviously
-* simple
+* simple:
 Only output will be shown
-* output
+* output:
 Translated code will be saved in stated outputfile.
 
 ## Features
