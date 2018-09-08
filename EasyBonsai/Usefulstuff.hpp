@@ -4,14 +4,17 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include "cppconlib.h"
+#include "termcolor.hpp"
 #include <sys/stat.h>
 #include <fstream>
 #include <sys/types.h>
 #include <regex>
 
 using namespace std;
-using namespace conmanip;
+
+enum Colors {
+	RED, GREEN, YELLOW
+};
 
 bool isValid(string input);
 bool isMarked(string input);
@@ -22,7 +25,7 @@ bool isZeroAllocation(string input);
 bool isNormalAllocation(string input);
 
 vector<string> translate(vector<string> inp);
-vector<std::string> split(std::string str, std::string sep);
+vector<string> split(string str, string sep);
 vector<vector<string>> getZeroAllocation(int back, int line, string first);
 vector<vector<string>> getNormalAllocation(int back, int line/*(*in).size()*/, string first, string second, string help);
 
@@ -31,10 +34,9 @@ string join(const vector<string>& v, char c);
 void format(vector<string> *in);
 void JmpOverwrite(vector<string> *in);
 void FunctionSystem(vector<string> *in);
-void log(string message, console_text_colors color = console_text_colors::white, console_bg_colors bgcolor = console_bg_colors::black, bool endline = true, string prefix = "");
+void log(string message, Colors color, bool endline = true, string prefix = "");
 
 //Basic Regex for instruction recognition.
-//regex validinst(R"rgx(^(.?:? ?)((jmp [+-]?\d+)|(jmp [a-z])|(tst \d)|(dec \d)|(inc \d)|(hlt)|([[]\d[=](zero)[]]))$)rgx");
 regex validinst(R"rgx(^(.?:? ?)((jmp [+-]?\d+)|(jmp [a-z])|(tst \d)|(dec \d)|(inc \d)|(hlt)|(\[\d=zero\])|(\[\d=\d\#\d\]))$)rgx");
 bool isValid(string input) {
 	if (regex_match(input, validinst)) {
@@ -91,13 +93,23 @@ bool isNormalAllocation(string input) {
 	return false;
 }
 
-void log(string message, console_text_colors color, console_bg_colors bgcolor, bool endline, string prefix) {
-	cout
-		<< settextcolor(color)
-		<< setbgcolor(bgcolor)
+void log(string message, Colors color, bool endline, string prefix) {
+	if(color == Colors::RED)
+		cout << termcolor::red 
+			<< (prefix != "" ? "[" + prefix + "] " : "")
+			<< termcolor::reset
+			<< message
+			<< " " << ((endline == true) ? "\n" : "");
+	if (color == Colors::GREEN)
+		cout << termcolor::green
 		<< (prefix != "" ? "[" + prefix + "] " : "")
-		<< settextcolor(console_text_colors::white)
-		<< setbgcolor(console_bg_colors::black)
+		<< termcolor::reset
+		<< message
+		<< " " << ((endline == true) ? "\n" : "");
+	if (color == Colors::YELLOW)
+		cout << termcolor::yellow
+		<< (prefix != "" ? "[" + prefix + "] " : "")
+		<< termcolor::reset
 		<< message
 		<< " " << ((endline == true) ? "\n" : "");
 }
@@ -106,9 +118,7 @@ void log(string message, console_text_colors color, console_bg_colors bgcolor, b
 vector<vector<string>> getZeroAllocation(int back, int line/*(*in).size()*/, string first) {
 	vector<vector<string>> rtn;
 	string sline = ::to_string(line);
-	string sback = ::to_string(back);
 	rtn.push_back({ string("jmp " + sline) });
-
 	vector<string> func;
 	func.push_back("tst " + first); //Line Number of this is sLine
 	func.push_back("jmp " + ::to_string(line + 3)); //Jump to dec;
@@ -123,9 +133,7 @@ vector<vector<string>> getZeroAllocation(int back, int line/*(*in).size()*/, str
 vector<vector<string>> getNormalAllocation(int back, int line/*(*in).size()*/, string first, string second, string help) {
 	vector<vector<string>> rtn;
 	string sline = ::to_string(line);
-	string sback = ::to_string(back);
 	rtn.push_back({ string("jmp " + sline) });
-
 	vector<string> func;
 	//Im not even going to try to commentate this shit properly...
 	/*0*/func.push_back("tst " + second); //TST Y
@@ -151,14 +159,12 @@ vector<vector<string>> getNormalAllocation(int back, int line/*(*in).size()*/, s
 	/*20*/func.push_back("dec " + help); // DEC H
 	/*21*/func.push_back("inc " + first); // INC X
 	/*22*/func.push_back("jmp " + ::to_string(line + 17)); // JMP -5
-
 	rtn.push_back(func);
-
 	return rtn;
 }
 
 //Stole those from Stackoverflow :^)
-std::vector<std::string> split(std::string str, std::string sep) {
+vector<string> split(string str, string sep) {
 	char* cstr = const_cast<char*>(str.c_str());
 	char* current;
 	std::vector<std::string> arr;
