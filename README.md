@@ -88,3 +88,6 @@ Allows us to jump a set amount of lines forwards or backwards.
 
 * Python  
 This project was ported to python by Moquo (https://gitlab.com/Moquo/EasyBonsai.py)
+
+## License
+[GNU GPLv3](LICENSE)
