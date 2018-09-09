@@ -40,7 +40,7 @@ int main(int argc, char* args[])
 		}
 
 		vector<string> builtcode; //Array which will hold the code which we will later translate.
-		//for (auto x : input) { // We will output the code here, so the user knows which lines we will use or not use.
+		// We will output the code here, so the user knows which lines we will use or not use.
 		for (int i = 0; input.size() > i; i++) {
 			auto x = input[i];
 			if (isValid(x)) { //Check if Line is valid/allowed instruction.
@@ -79,8 +79,9 @@ int main(int argc, char* args[])
 
 void format(vector<string> *in) {
 	for (int i = 0; (*in).size() > i; i++) { //Loop through the code lines
-		if (isMarked((*in)[i])) //If Line starts with "x: " then remove the beginning because this is no longer needed.
-			(*in)[i] = (*in)[i].substr(3); // This skips "x: "
+		///I dont know if removing this is the best idea but i think this will work better otherwise... Yep defenetly works better xD
+		//if (isMarked((*in)[i])) //If Line starts with "x: " then remove the beginning because this is no longer needed.
+		//	(*in)[i] = (*in)[i].substr(3); // This skips "x: "
 		if (!isFormatted(((*in)[i])) && !hidelinenumbers) //If Line is not formatted, format it... (Include Line Numbers)
 			(*in)[i] = std::string(::to_string(i) + ": " + (*in)[i]); //This add the line number infront of the line
 	}
@@ -120,6 +121,14 @@ void FunctionSystem(vector<string> *in) {
 				}
 			}
 		}
+		for (int i = 0; (*in).size() > i; i++) { //And remove the function marking :)
+			if (isMarked((*in)[i])) { //If instruction refers func.
+				string _fName = (*in)[i].substr(0,1); //Get referred function name.
+				if (_fName == funcName) { //if function name equals current func Name
+					(*in)[i] = (*in)[i].substr(3); // This skips "x: "*/
+				}
+			}
+		}
 	}
 }
 void Allocation(vector<string> *in) {
@@ -143,12 +152,36 @@ void Allocation(vector<string> *in) {
 	}
 }
 
+void ANDandOR(vector<string> *in) {
+	for (int i = 0; (*in).size() > i; i++) {
+		if (isAND((*in)[i])) {
+			vector<string> splitted = split((*in)[i], " AND ");
+			string first = splitted[0].substr(splitted[0].size() - 1, 1); // Gets the first value to compare
+			string second = splitted[1].substr(0, 1); // Gets the second value to compare
+			vector<vector<string>> func = owAnd(i, (*in).size(), first, second); //Gets the new code
+			(*in)[i] = func[0][0]; //Overwrites original instruction
+			for (auto x : func[1]) //Adds the code.
+				(*in).push_back(x);
+		}
+		if (isOR((*in)[i])) {
+			vector<string> splitted = split((*in)[i], " OR ");
+			string first = splitted[0].substr(splitted[0].size() - 1, 1); // Gets the first value to compare
+			string second = splitted[1].substr(0, 1); // Gets the second value to compare
+			vector<vector<string>> func = owOr(i, (*in).size(), first, second); //Gets the new code
+			(*in)[i] = func[0][0]; //Overwrites original instruction
+			for (auto x : func[1]) //Adds the code.
+				(*in).push_back(x);
+		}
+	}
+}
+
 vector<string> translate(vector<string> inp) {
 	vector<string> t_code = inp; //Copy input just for ease
 
 	FunctionSystem(&t_code); //Redirect Function References to correct lines.
 	JmpOverwrite(&t_code); //Convert (5: JMP -2) to (5: JMP 3) and so on :)
 	Allocation(&t_code); //Append Functions
+	ANDandOR(&t_code); //Make ANd and OR work
 	format(&t_code); //Get Code in right format.
 
 	return t_code;
