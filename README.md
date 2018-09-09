@@ -6,17 +6,29 @@ This program will make it easier to write code in bonsai-assembler (code will be
 
 ## Installing
 
-Download and Compile :D (This program should work for linux too after removing the cppconlib-library)
+* Windows:
+  Donwload and Compile.
+* Linux/Mac:
+  Download and Compile if your compiler supports regex. (Or just download the release and use wine)
 
 ### Getting Started
 
 This program can be easily ran through your console, it works like this:
 
 ```
-EasyBonsai.exe (Name of Text/Source File)
+EasyBonsai.exe (Name of Text/Source File) (Optional Parameters: --strict,--hidelinenumbers,--simple ,--output:File)
 ```
-This will translate the code of your source file to bonsai assembler code.
 
+**Parameters**
+
+* strict:
+Translator will abort if invalid code was found
+* hidelinenumbers:
+Line numbers will not be shown, obviously
+* simple:
+Only output will be shown
+* output:
+Translated code will be saved in stated outputfile.
 
 ## Features
 
@@ -25,13 +37,12 @@ This will translate the code of your source file to bonsai assembler code.
 //You will need a value x(the value to copy from), value y(the value to copy to) and a helper value.
 [x=y#helpervalue]
 ```
-
 In this example x will be set to 0.
 ```
 [x=zero]
 ```
 
-### Function like System
+### Function System
 ```
 0: tst 0
 1: jmp x //<-- This will later jump straight to line 3
@@ -40,8 +51,8 @@ In this example x will be set to 0.
 4: dec 0
 5: jmp 0
 ```
-### "JmpSkipping"
-(With this code its pretty self explanatory)
+### EasyJumps
+Allows us to jump a set amount of lines forwards or backwards.
 ```
 0: tst 0
 1: jmp +2 //Will jump to line 3
@@ -55,8 +66,14 @@ In this example x will be set to 0.
 
 ## Built With
 
-* [cppconlib](https://archive.codeplex.com/?p=cppconlib) - For better looking console outputs.
+* [termcolor](https://github.com/ikalnytskyi/termcolor) - For color.
 
 ## Authors
 
 * **Me** 
+* **Moquo** (Python Port)
+
+## Implementations
+
+* Python
+This project was ported to python by Moquo (https://gitlab.com/Moquo/EasyBonsai.py)
