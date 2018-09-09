@@ -62,8 +62,19 @@ Allows us to jump a set amount of lines forwards or backwards.
 5: [...]
 6: jmp -6 //You can also jump backwards! This will jump to line 0
 ```
-
-
+(Not Supported in Bonsai.py yet)
+### AND
+```
+0: x AND y
+1: hlt // <- if x and y go here
+2: [x=y#h] // if not go here.
+```
+### OR
+```
+0: x OR y
+1: hlt // if x or y go here.
+2: (do something different) // if not x or y go here
+```
 ## Built With
 
 * [termcolor](https://github.com/ikalnytskyi/termcolor) - For color.
