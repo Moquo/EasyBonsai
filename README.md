@@ -6,10 +6,10 @@ This program will make it easier to write code in bonsai-assembler (code will be
 
 ## Installing
 
-* Windows:
-  Donwload and Compile.
-* Linux/Mac:
-  Download and Compile if your compiler supports regex. (Or just download the release and use wine)
+* Windows:  
+  Download and compile.
+* Linux/Mac:  
+  Download and compile if your compiler supports regex. (Or just download the release and use wine)
 
 ### Getting Started
 
