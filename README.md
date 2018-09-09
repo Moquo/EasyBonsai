@@ -9,7 +9,7 @@ This program will make it easier to write code in bonsai-assembler (code will be
 * Windows:
   Donwload and Compile.
 * Linux/Mac:
-  Download and Compile if your compiler supports regex.
+  Download and Compile if your compiler supports regex. (Or just download the release and use wine)
 
 ### Getting Started
 
